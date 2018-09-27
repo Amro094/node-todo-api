@@ -10,7 +10,7 @@ MongoClient.connect('mongodb://localhost:27017/TodoApp', (err, client) => {
     console.log('Connected to MongoDB sever successfully');
 
     const db = client.db('TodoApp');
-
+    
     // Todos collection
     /* db.collection('Todos').findOneAndUpdate({
         _id: new ObjectID('5b9f2a8ea16cf9e1250c2e07')
