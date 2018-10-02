@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const {ObjectID} = require('mongodb');
 
 // local
 const {mongoose} = require('./db/mongoose');
@@ -36,6 +37,27 @@ app.get('/todos', (req, res) => {
         res.send({todos});
     }, (err) => {
         res.status(400).send(err);
+    });
+});
+
+// creating dynamic url 
+app.get('/todos/:id', (req, res) => {
+    var id = req.params.id;
+    
+    // validating the id
+    if (!ObjectID.isValid(id)) {
+        return res.status(404).send();
+    }
+
+    // find the id provided by user
+    Todo.findById({_id: id}).then((todo) => {
+        if (todo) {
+            res.send({todo});
+        } else {
+            return res.status(404).send();
+        }
+    }).catch ((err) => {
+        res.status(400).send();
     });
 });
 
