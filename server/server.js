@@ -8,6 +8,10 @@ const {Todo} = require('./models/todo');
 const {User} = require('./models/user');
 
 var app = express();
+// setting up the env to the heroku port
+// if app does not connect with the heroku, then 
+//   will connec to the local port 3000
+const port = process.env.PORT || 3000;
 
 app.use(bodyParser.json());
 
@@ -62,7 +66,7 @@ app.get('/todos/:id', (req, res) => {
 });
 
 app.listen(3000, () => {
-    console.log('Server started on port 3000');
+    console.log(`Started up at port ${port}`);
 });
 
 
